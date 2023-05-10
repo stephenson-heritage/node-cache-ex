@@ -1,7 +1,7 @@
 const axios = require("axios");
 const db = require("../modules/db");
 
-const minExpire = 1;
+const minExpire = 30;
 
 module.exports = class {
     static async fetchUrl(url) {
