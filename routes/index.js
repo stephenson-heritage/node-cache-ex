@@ -18,12 +18,7 @@ router.get('/fountains', async function (req, res) {
 });
 
 router.get('/fountains/:lng,:lat', async function (req, res) {
-
-
   let data = await fountain.getClosest({ lat: req.params.lat, long: req.params.lng }, 20);
-
-
-
   res.json(data);
 });
 
