@@ -1,9 +1,23 @@
 const axios = require("axios");
 const db = require("../modules/db");
 
-const minExpire = 30;
+const minExpire = 300;
 
 module.exports = class {
+
+    static async isCached(url) {
+        const dbConn = await db.getConnection();
+
+        const rows = await dbConn.query("select 1 from cache where url like ? and timestampdiff(minute,`date`,NOW()) <= ? order by `date` desc limit 1",
+            [url, minExpire]);
+
+        if (rows.length > 0) {
+            return true;
+        }
+
+        return false;
+
+    }
     static async fetchUrl(url) {
         const dbConn = await db.getConnection();
 
